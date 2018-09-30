@@ -1,0 +1,12 @@
+{
+  "name": "straight-skeleton",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel serve --port=1234 index.html"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.10.1"
+  }
+}

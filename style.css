@@ -1,0 +1,19 @@
+#first-canvas, #second-canvas{
+    border: solid 3px #000;
+}
+
+
+div.btn {
+    border: solid 1px black;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    display: inline-block;
+    margin: 4px;
+    padding: 4px;
+    transition: .4s;
+    user-select: none;
+}
+div.btn:hover{
+    border-color: gray;
+}
