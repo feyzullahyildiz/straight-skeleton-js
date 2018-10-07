@@ -85,37 +85,105 @@ drawPolygon(polygon, context)
 drawSkeleton(polygon, secondContext)
 
 const drawLines = (_polygon, _ctx) => {
-    const newPolygons = []
+    const pointArray = []
     for(let i = 0; i < _polygon.length; i++){
         let before = previousPoint(_polygon, i)
-        let now = polygon[i]
+        let now = _polygon[i]
         let next = nextPoint(_polygon, i)
         before = new Point(...before)
         now = new Point(...now)
         next = new Point(...next)
-        // now.drawCanvas(_ctx)
         let firstVector = new Vector(now, before)
         let nearPoint = firstVector.giveMeAPointThatOnTheLineWithAMeasureValue(10)
-        // nearPoint.drawCanvas(_ctx)
 
         let secondVector = new Vector(now, next)
         let farPoint = secondVector.giveMeAPointThatOnTheLineWithAMeasureValue(10)
         let v1 = new Vector(now, nearPoint)
         let v2 = new Vector(now, farPoint)
-        
         let bisector = Vector.add(v1, v2)
-        let bisectorPoint = bisector.giveMeAPointThatOnTheLineWithAMeasureValue(10)
+
+        if(firstVector.isConcave(next)){
+            bisector = Vector.add(v1, v2)
+        }else{
+            bisector = Vector.add(v1.getInvertVector(), v2.getInvertVector())
+        }
+        let bisectorPoint = bisector.giveMeAPointThatOnTheLineWithAMeasureValue(15)
         bisectorPoint.drawCanvas(_ctx)
         bisector = new Vector(now, bisectorPoint) 
         bisector.drawCanvas(_ctx)
-        newPolygons.push(bisectorPoint)
+        pointArray.push(bisectorPoint)
 
         
         
     }
-    Point.drawPoints(_ctx, newPolygons)
+    Point.drawPoints(_ctx, pointArray)
 }
 
 drawPolygon(polygon, secondContext)
 drawLines(polygon, secondContext)
+
+const triangle = [
+    [100, 250],
+    [101, 160],
+    [50, 160],
+    [30, 250],
+    [40, 300],
+    [270, 300],
+    [250, 150],
+    [200, 160],
+    [160, 250],
+    [100, 250],
+]
+drawPolygon(triangle, context)
+drawPolygon(triangle, secondContext)
+drawLines(triangle, secondContext)
+
+// SIKINTILIVERI
+// const triangle = [
+//     [200, 200],
+//     [50, 160],
+//     [50, 250],
+//     [40, 300],
+//     [270, 300],
+//     [200, 200],
+// ]
+// drawPolygon(triangle, secondContext)
+// drawLines(triangle, secondContext)
+
+
+
+// const triangle = [
+//     [200, 200],
+//     [150, 300],
+//     [270, 300],
+//     [200, 200],
+// ]
+
+
+// drawPolygon(triangle, secondContext)
+// drawLines(triangle, secondContext)
+
+// const square = [
+//     [25, 200],
+//     [25, 300],
+//     [125, 300],
+//     [125, 200],
+//     [25, 200],
+// ]
+
+
+// drawPolygon(square, secondContext)
+// drawLines(square, secondContext)
+
+// const yamuk = [
+//     [55, 360],
+//     [25, 430],
+//     [95, 395],
+//     [125, 330],
+//     [55, 360],
+// ]
+
+
+// drawPolygon(yamuk, secondContext)
+// drawLines(yamuk, secondContext)
 

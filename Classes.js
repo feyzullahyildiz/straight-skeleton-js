@@ -17,7 +17,8 @@ export class Vector {
         return Point.remove(this.start, point)
     }
     tan(){
-        return Point.tan(this.start, this.end)
+        let tan = Point.tan(this.start, this.end)
+        return tan
     }
 
     drawCanvas(_ctx){
@@ -31,7 +32,18 @@ export class Vector {
         // this.start.drawCanvas(_ctx)
         // this.end.drawCanvas(_ctx)
     }
-
+    isConcave(p1){
+        const a = this.start
+        const b = this.end
+        const c = p1
+        return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0
+    }
+    getPointOnVectorFromX(x){
+        return new Point(x, this.tan() * x)
+    }
+    getInvertVector(){
+        return new Vector(this.start, this.end.getInvertPoint(this.start))
+    }
     static angleBisectorVector(v1, v2, measure = 10){
         return Vector.add(v1, v2).end
     }
@@ -65,6 +77,9 @@ export class Point {
     }
     toArray(){
         return [this.x, this.y]
+    }
+    getInvertPoint(p1){
+        return new Point(this.x + (2 * (p1.x - this.x)), this.y + (2 * (p1.y - this.y)))
     }
     static tan(p1, p2){
         return (p1.y - p2.y) / (p1.x - p2.x)
